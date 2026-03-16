@@ -7,50 +7,72 @@ import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
 
 `obedur-os` 选择了 **Niri** 作为其默认的窗口管理器。Niri 是一个现代化的、基于可滚动布局的平铺 Wayland 合成器。
 
-## 为什么选择 Niri？
+## 核心特性
 
-不同于传统的网格式平铺（如 i3 或 Sway），Niri 采用了一种“无限平铺带”的概念。窗口水平排列在一个无限长的带子上，您可以非常顺滑地在窗口间滚动。
-
-<CardGrid>
-  <Card title="直观的布局" icon="magnifier">
-    窗口不会因为增加而变得极小，而是保持可用的大小并在屏幕外延伸。
-  </Card>
-  <Card title="原生 Wayland" icon="rocket">
-    基于 Smithay 构建，提供极高的性能和极低的延迟。
-  </Card>
-</CardGrid>
+Niri 采用“无限平铺带”概念，窗口水平排列在无限长的带子上，提供极度流畅的视觉体验。
 
 ---
 
-## 核心集成
+## 预置快捷键指南
 
-在 `obedur-os` 中，我们预装了以下 Niri 生态组件：
+以下是基于 `obedur-os` 官方配置的完整快捷键列表。`Mod` 键默认为键盘上的 **Super / Win** 键。
 
-*   **合成器**: `niri` (来自 terra 仓库)
-*   **终端**: `ghostty` (默认终端)
-*   **截屏工具**: `grim` + `slurp` + `satty`
-*   **剪贴板管理**: `wl-clip-persist`
+### 应用启动与系统组件
 
-<Aside type="caution">
-**配置说明**：当前的系统镜像尚未内置默认的 Niri 配置文件。我们建议您通过 **Chezmoi** 管理您个人的 `config.kdl`。
-</Aside>
+| 快捷键 | 功能描述 |
+| :--- | :--- |
+| `Mod + A` 或 `Space` | 切换 **Noctalia** 应用启动器 |
+| `Mod + T` 或 `Ctrl + Alt + T` | 打开终端 (**Ghostty**) |
+| `Mod + E` | 打开文件管理器 (**Nautilus**) |
+| `Mod + Escape` | 打开系统资源监视器 (**Resources**) |
+| `Mod + V` | 打开剪贴板历史 |
+| `Mod + N` | 切换便签抽屉 (需安装 [notes-scratchpad](https://noctalia.dev/plugins/notes-scratchpad/)) |
+| `Mod + P` | 切换壁纸选择面板 |
+| `Mod + M` | 切换系统状态监视器 |
+| `Mod + Z` 或 `Mod + Shift + B` | 切换任务栏 (Bar) 显示 |
+| `Ctrl + Alt + Delete` | 弹出系统会话菜单 (注销/重启/关机) |
+
+### 焦点移动 (Focus)
+
+| 快捷键 | 功能描述 |
+| :--- | :--- |
+| `Mod + H / L` 或 `左 / 右` | 切换到左/右侧的窗口列 |
+| `Mod + J / K` 或 `下 / 上` | 切换到当前列中下/上方的窗口 |
+| `Mod + Shift + J / K` 或 `下 / 上` | 切换到下/上一个工作区 |
+| `Mod + 1 ~ 9` | 快速跳转到指定编号的工作区 |
+| `Mod + Page_Up / Page_Down` | 在不同显示器 (Monitor) 之间切换焦点 |
+| `Mod + 滚轮` | 左右滚动窗口列视图 |
+| `Mod + Shift + 滚轮` | 上下滚动切换工作区 |
+
+### 窗口移动与布局 (Move & Layout)
+
+| 快捷键 | 功能描述 |
+| :--- | :--- |
+| `Mod + Q` | **关闭当前窗口** |
+| `Mod + Ctrl + H / L` 或 `左 / 右` | 将当前窗口列向左/右移动 |
+| `Mod + Ctrl + J / K` 或 `下 / 上` | 将当前窗口在列内下/上移动 |
+| `Mod + Ctrl + 1 ~ 9` | 将当前列移动到指定工作区 |
+| `Mod + Alt + 1 ~ 9` | 将当前列移动到指定工作区 (焦点不跟随) |
+| `Mod + F` | 切换窗口列最大化 |
+| `Mod + Shift + F` | 切换窗口全屏 |
+| `Mod + W` | 切换窗口悬浮状态 |
+| `Mod + Shift + W` | 在悬浮窗口与平铺窗口间切换焦点 |
+| `Mod + G` | 将窗口合并进左侧的列 (Consume) |
+| `Mod + Shift + G` | 将窗口从列中分离 (Expel) |
+| `Mod + R` | 切换预设的列宽 (Column Width) |
+| `Mod + Shift + R` | 切换预设的窗口高度 (Window Height) |
+| `Mod + C` | 将窗口列居中显示 |
+
+### 媒体与系统功能
+
+| 快捷键 | 功能描述 |
+| :--- | :--- |
+| `Print` 或 `Mod + Shift + S` | **屏幕截图** (调用 Satty 进行编辑/保存) |
+| `Mod + Shift + P` | 关闭显示器电源 |
+| `音量/亮度键` | 通过 Noctalia Shell 控制音量与亮度 |
 
 ---
 
-## 官方资源与文档
+## 配置同步
 
-如果您想深入研究 Niri 的配置或了解其进阶特性，请参考其官方文档：
-
-<Card title="Niri 官方文档" icon="external">
-  [niri-wm.github.io/niri/](https://niri-wm.github.io/niri/)
-</Card>
-
----
-
-## 自定义 Niri
-
-您可以将自己的 Niri 配置文件放在 `~/.config/niri/config.kdl`。
-
-<Aside type="tip">
-由于 `obedur-os` 是不可变的，我们建议使用系统中已预装的 **Chezmoi** 来管理您的 dotfiles。
-</Aside>
+如果您是变基用户，请务必参考 [初始化指南 - Niri 配置初始化](/obedur-docs/initialization/#4-niri-配置初始化) 来同步这些预置配置，否则上述快捷键可能无法生效。
