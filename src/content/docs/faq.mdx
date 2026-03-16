@@ -11,7 +11,7 @@ import { Aside } from '@astrojs/starlight/components';
 本在线文档由 **AI (Gemini CLI)** 协助构建和维护，由 **Starlight** 和 **Astro** 强力驱动。虽然我们力求内容的准确性，但 AI 可能会出现理解偏差或滞后于系统更新。
 </Aside>
 
-## 网络连接
+## 常见问题列表
 
 <details>
 <summary><b>变基后网络连接失败或无法识别？</b></summary>
@@ -33,8 +33,6 @@ import { Aside } from '@astrojs/starlight/components';
 
 </details>
 
-## 系统权限与弹窗
-
 <details>
 <summary><b>无法弹出密码请求对话框 (Polkit)？</b></summary>
 
@@ -44,6 +42,20 @@ import { Aside } from '@astrojs/starlight/components';
 
 **解决方法**：
 强烈建议您通过 **noctalia-shell** 的插件管理功能，安装 Noctalia 官方提供的 **"polkit agent"** 插件。该插件能够完美集成在您的桌面环境中，为您提供现代化的授权弹窗支持。
+
+</details>
+
+<details>
+<summary><b>主目录中缺少“下载”、“图片”等标准文件夹？</b></summary>
+
+**问题描述**：在安装或初始化系统后，发现用户主目录下没有 `Downloads`、`Pictures`、`Documents` 等标准的 XDG 用户目录。
+
+**解决方法**：
+您可以打开终端，执行以下命令来自动生成这些标准目录：
+```bash
+xdg-user-dirs-update
+```
+执行后，系统会根据当前的语言设置自动在主目录下创建相应的文件夹。
 
 </details>
 
