@@ -33,6 +33,20 @@ import { Aside } from '@astrojs/starlight/components';
 
 </details>
 
+## 系统权限与弹窗
+
+<details>
+<summary><b>无法弹出密码请求对话框 (Polkit)？</b></summary>
+
+**问题描述**：在运行需要管理员权限的程序（如图形化包管理器、系统设置修改等）时，系统没有弹出输入密码的授权对话框。
+
+**原因分析**：为了保持系统的极简性，`obedur-os` 镜像本身并未内置通用的 Polkit 用户代理 (polkit agent)。
+
+**解决方法**：
+强烈建议您通过 **noctalia-shell** 的插件管理功能，安装 Noctalia 官方提供的 **"polkit agent"** 插件。该插件能够完美集成在您的桌面环境中，为您提供现代化的授权弹窗支持。
+
+</details>
+
 ---
 
 ## 参与贡献
