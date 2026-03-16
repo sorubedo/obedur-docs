@@ -24,6 +24,7 @@ export default defineConfig({
 					label: '系统特性',
 					items: [
 						{ label: 'Niri 窗口管理器', slug: 'features/niri' },
+						{ label: 'Noctalia Shell', slug: 'features/noctalia' },
 					],
 				},
 				{
