@@ -1,40 +1,42 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: obedur-os
+description: 基于 Fedora 的不可变原子操作系统，集成 Niri 窗口管理器与 Noctalia Shell。
+template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: 极简、现代、可靠。体验容器原生桌面的未来。
   image:
     file: ../../assets/houston.webp
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: 立即安装
+      link: /obedur-docs/getting-started/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+      variant: primary
+    - text: 在 GitHub 查看
+      link: https://github.com/sorubedo/obedur-os
       icon: external
-      variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## 核心特性
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+<CardGrid staggered>
+	<Card title="原子化更新" icon="setting">
+		基于 Fedora Atomic 技术，系统更新安全可靠，支持一键回滚。
 	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
+	<Card title="Niri 窗口管理器" icon="open-book">
+		内置现代的可滚动的平铺窗口管理器 Niri，提供极致的流畅操作体验。
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Noctalia Shell" icon="rocket">
+		集成 Noctalia Shell，打造美观且功能强大的现代化桌面交互界面。
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="容器原生" icon="add-document">
+		完全支持 `bootc` 管理，像管理容器镜像一样管理你的操作系统。
 	</Card>
 </CardGrid>
+
+---
+
+:::note[声明]
+本站文档由 **AI (Gemini CLI)** 协助构建，由 **Starlight** 和 **Astro** 强力驱动。如有错误或疑问请在 [Issues](https://github.com/sorubedo/obedur-docs/issues) 中反馈。
+:::

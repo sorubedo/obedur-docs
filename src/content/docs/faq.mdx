@@ -1,0 +1,49 @@
+---
+title: 常见问题 (FAQ)
+description: 关于 obedur-os 的常见问题与解答。
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+我们正在积极收集用户在使用 `obedur-os` 时遇到的常见问题。
+
+<Aside type="note" title="文档构建声明">
+本在线文档由 **AI (Gemini CLI)** 协助构建和维护，由 **Starlight** 和 **Astro** 强力驱动。虽然我们力求内容的准确性，但 AI 可能会出现理解偏差或滞后于系统更新。
+</Aside>
+
+## 网络连接
+
+<details>
+<summary><b>变基后网络连接失败或无法识别？</b></summary>
+
+**问题描述**：在从其他系统（如 Fedora Workstation）变基到 `obedur-os` 后，原有的 Wi-Fi 连接可能无法正常工作。
+
+**原因分析**：为了提升无线网络的稳定性和效率，`obedur-os` 将 **NetworkManager** 的后端由默认后端的 `wpa_supplicant` 切换为了 **iwd (iNet wireless daemon)**。
+
+**解决方法**：
+1.  **忘记网络**：您需要先在系统中“忘记”当前的网络连接。
+2.  **重新连接**：再次搜索并输入密码重新连接即可。
+
+**推荐工具**：
+- **图形化操作**：如果您已经进入 Niri 环境，可以使用 **noctalia-shell** 的网络组件进行操作。
+- **命令行/终端**：如果 Niri 尚未配置完成，或者您在 TTY 下，请使用内置的交互式工具：
+  ```bash
+  wifitui
+  ```
+
+</details>
+
+---
+
+## 参与贡献
+
+如果您在使用过程中发现文档描述有误，或者有好的建议，欢迎：
+
+*   **提交 Issue**: 在 [obedur-docs GitHub 仓库](https://github.com/sorubedo/obedur-docs/issues) 提交报错。
+*   **PR 欢迎**: 您也可以直接 fork 我们的文档仓库并提交修正。
+
+---
+
+## 预留内容
+
+*(目前暂未添加具体问答，欢迎通过 Issue 向我们提问)*

@@ -9,17 +9,29 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'obedur-os Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/sorubedo/obedur-os' }],
 			sidebar: [
 				{
-					label: 'Guides',
+					label: '开始使用',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: '简介', slug: 'index' },
+						{ label: '安装指南', slug: 'getting-started' },
+						{ label: '初始化指南', slug: 'initialization' },
+						{ label: '使用技巧', slug: 'tips' },
 					],
 				},
 				{
-					label: 'Reference',
+					label: '系统特性',
+					items: [
+						{ label: 'Niri 窗口管理器', slug: 'features/niri' },
+					],
+				},
+				{
+					label: '常见问题',
+					slug: 'faq',
+				},
+				{
+					label: '参考',
 					autogenerate: { directory: 'reference' },
 				},
 			],

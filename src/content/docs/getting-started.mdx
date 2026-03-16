@@ -1,0 +1,97 @@
+---
+title: 安装与更新
+description: 了解如何安装或变基到 obedur-os。
+---
+
+import { Steps, Aside, Tabs, TabItem, Card, CardGrid } from '@astrojs/starlight/components';
+
+# 安装指南
+
+`obedur-os` 提供了多种安装方式。对于大多数用户，我们建议先安装 Fedora 官方的原子化版本，然后通过变基 (Rebase) 切换到我们的镜像。
+
+## 1. 准备基础系统 (推荐)
+
+如果您是进行全新安装 (Fresh Install)，我们强烈建议您先安装 **Fedora Sway Atomic**。它是 Fedora 官方提供的原子化桌面，其底层架构与 `obedur-os` 高度契合。
+
+<CardGrid>
+  <Card title="下载官方镜像" icon="external">
+    前往 [Fedora Atomic Desktops](https://fedoraproject.org/atomic-desktops/sway/) 下载最新的 Sway Atomic ISO。
+  </Card>
+  <Card title="为什么选择它？" icon="information">
+    安装完成后，您可以无缝变基到 `obedur-os`，所有的分区和加密设置都会被保留。
+  </Card>
+</CardGrid>
+
+---
+
+## 2. 变基 (Rebase) 到 obedur-os
+
+一旦您拥有了一个运行中的 Fedora Atomic 系统（如 Sway Atomic, Silverblue 或 Kinoite），您可以使用以下命令进行切换。
+
+<Aside type="caution">
+这是一项实验性功能，请在操作前备份重要数据。
+</Aside>
+
+<Tabs>
+  <TabItem label="bootc (推荐)" icon="rocket">
+    <Steps>
+    1.  **变基到未签名的镜像**：
+        ```bash
+        bootc switch ghcr.io/sorubedo/obedur-os:latest
+        ```
+    2.  **重启系统**：
+        ```bash
+        systemctl reboot
+        ```
+    3.  **切换到强制签名验证**，确保系统安全性：
+        ```bash
+        bootc switch --enforce-container-sigpolicy ghcr.io/sorubedo/obedur-os:latest
+        ```
+    4.  **再次重启**以完成安装。
+    </Steps>
+  </TabItem>
+
+  <TabItem label="rpm-ostree (传统)" icon="setting">
+    <Steps>
+    1.  **变基到未签名的镜像**：
+        ```bash
+        rpm-ostree rebase ostree-unverified-registry:ghcr.io/sorubedo/obedur-os:latest
+        ```
+    2.  **重启系统**：
+        ```bash
+        systemctl reboot
+        ```
+    3.  **变基到已签名的镜像**：
+        ```bash
+        rpm-ostree rebase ostree-image-signed:docker://ghcr.io/sorubedo/obedur-os:latest
+        ```
+    4.  **再次重启**。
+    </Steps>
+  </TabItem>
+</Tabs>
+
+---
+
+## 3. 自定义 ISO 构建 (进阶)
+
+如果您希望制作一个可以直接安装 `obedur-os` 的离线安装介质，您可以自行构建 ISO。
+
+<Card title="构建您自己的 ISO" icon="document">
+  由于 GitHub 的限制，我们不直接分发 ISO 文件。您可以参考 [BlueBuild 官方文档](https://blue-build.org/learn/universal-blue/#fresh-install-from-an-iso) 来了解如何通过本地或 GitHub Actions 构建您的专属安装镜像。
+</Card>
+
+---
+
+## 验证与安全性
+
+`obedur-os` 使用 [Sigstore](https://www.sigstore.dev/) 的 `cosign` 进行签名。您可以下载仓库中的 `cosign.pub` 文件并运行以下命令验证：
+
+```bash
+cosign verify --key cosign.pub ghcr.io/sorubedo/obedur-os
+```
+
+---
+
+## 下一步
+
+完成安装并重启系统后，请继续阅读 [**初始化指南**](/obedur-docs/initialization/) 来完成系统的初步设置。

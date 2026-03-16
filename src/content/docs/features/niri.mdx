@@ -1,0 +1,56 @@
+---
+title: Niri 窗口管理器
+description: 了解 obedur-os 中内置的现代化滚动平铺窗口管理器。
+---
+
+import { Aside, Card, CardGrid } from '@astrojs/starlight/components';
+
+`obedur-os` 选择了 **Niri** 作为其默认的窗口管理器。Niri 是一个现代化的、基于可滚动布局的平铺 Wayland 合成器。
+
+## 为什么选择 Niri？
+
+不同于传统的网格式平铺（如 i3 或 Sway），Niri 采用了一种“无限平铺带”的概念。窗口水平排列在一个无限长的带子上，您可以非常顺滑地在窗口间滚动。
+
+<CardGrid>
+  <Card title="直观的布局" icon="magnifier">
+    窗口不会因为增加而变得极小，而是保持可用的大小并在屏幕外延伸。
+  </Card>
+  <Card title="原生 Wayland" icon="rocket">
+    基于 Smithay 构建，提供极高的性能和极低的延迟。
+  </Card>
+</CardGrid>
+
+---
+
+## 核心集成
+
+在 `obedur-os` 中，我们预装了以下 Niri 生态组件：
+
+*   **合成器**: `niri` (来自 terra 仓库)
+*   **终端**: `ghostty` (默认终端)
+*   **截屏工具**: `grim` + `slurp` + `satty`
+*   **剪贴板管理**: `wl-clip-persist`
+
+<Aside type="caution">
+**配置说明**：当前的系统镜像尚未内置默认的 Niri 配置文件。我们建议您通过 **Chezmoi** 管理您个人的 `config.kdl`。
+</Aside>
+
+---
+
+## 官方资源与文档
+
+如果您想深入研究 Niri 的配置或了解其进阶特性，请参考其官方文档：
+
+<Card title="Niri 官方文档" icon="external">
+  [niri-wm.github.io/niri/](https://niri-wm.github.io/niri/)
+</Card>
+
+---
+
+## 自定义 Niri
+
+您可以将自己的 Niri 配置文件放在 `~/.config/niri/config.kdl`。
+
+<Aside type="tip">
+由于 `obedur-os` 是不可变的，我们建议使用系统中已预装的 **Chezmoi** 来管理您的 dotfiles。
+</Aside>

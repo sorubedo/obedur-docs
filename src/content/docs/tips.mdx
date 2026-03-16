@@ -1,0 +1,49 @@
+---
+title: 使用技巧
+description: 让您在使用 obedur-os 时更加得心应手。
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+这里收集了一些提升使用体验的技巧和推荐的操作方式。
+
+## 系统更新与维护
+
+<details>
+<summary><b>系统有哪几种更新方式？</b></summary>
+
+在 `obedur-os` 中，您可以通过以下三种方式保持系统最新：
+
+1.  **blujust update** (推荐方式)
+2.  **bootc update**
+3.  **rpm-ostree upgrade**
+
+</details>
+
+<details>
+<summary><b>为什么推荐使用 <code>blujust update</code>？</b></summary>
+
+`blujust` 是 BlueBuild 基础镜像内置的高级管理脚本，它极大地简化了维护流程：
+
+-   **无需 sudo**：直接执行 `blujust update` 即可，脚本内部会通过 `pkexec` 请求权限。
+-   **全方位更新**：它会先调用 `bootc update` 更新系统容器镜像，随后自动调用 `flatpak update` 更新所有已安装的 Flatpak 软件。
+-   **一键完成**：这是保持整个系统（包括应用）同步更新的最省力方式。
+
+</details>
+
+<details>
+<summary><b>如何清理系统冗余？</b></summary>
+
+如果您需要释放磁盘空间或清理缓存，可以使用：
+```bash
+blujust clean-system
+```
+该命令会自动处理系统层面的清理，并同时触发 Flatpak 的冗余数据清理。
+
+</details>
+
+---
+
+:::note[提示]
+建议养成定期执行 `blujust update` 的习惯，以确保获取最新的安全补丁和功能改进。
+:::
