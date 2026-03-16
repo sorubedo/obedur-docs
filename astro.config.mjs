@@ -17,6 +17,7 @@ export default defineConfig({
 						{ label: '简介', slug: 'index' },
 						{ label: '安装指南', slug: 'getting-started' },
 						{ label: '初始化指南', slug: 'initialization' },
+						{ label: '系统预览', slug: 'screenshots' },
 						{ label: '使用技巧', slug: 'tips' },
 					],
 				},
@@ -30,6 +31,10 @@ export default defineConfig({
 				{
 					label: '常见问题',
 					slug: 'faq',
+				},
+				{
+					label: '致谢',
+					slug: 'credits',
 				},
 				{
 					label: '参考',
