@@ -24,11 +24,27 @@ import { Steps, Aside, Tabs, TabItem, Card, CardGrid } from '@astrojs/starlight/
 
 ---
 
-## 2. 变基 (Rebase) 到 obedur-os
+## 2. 镜像选择
+
+在进行系统变基或安装之前，请根据您的显卡硬件配置选择合适的镜像名称：
+
+| 镜像名称 | 硬件说明 |
+| :--- | :--- |
+| **`obedur-os`** | **标准版**。适用于 Intel 或 AMD 显卡（推荐）。 |
+| **`obedur-os-nvidia`** | 包含传统的 **NVIDIA 闭源专有驱动**。 |
+| **`obedur-os-nvidia-open`** | 包含 NVIDIA 官方的 **开源内核模块驱动** (Open Kernel Modules)。 |
+
+---
+
+## 3. 变基 (Rebase) 到 obedur-os
 
 一旦您拥有了一个运行中的 Fedora Atomic 系统（如 Sway Atomic, Silverblue 或 Kinoite），您可以使用以下命令进行切换。
 
 <Aside type="caution">
+**注意**：以下命令以 `obedur-os` 标准版为例。如果您使用的是 NVIDIA 显卡，请务必将命令中的 `obedur-os` 替换为您在上方表格中选定的镜像名称。
+</Aside>
+
+<Aside type="danger">
 这是一项实验性功能，请在操作前备份重要数据。
 </Aside>
 
@@ -72,7 +88,7 @@ import { Steps, Aside, Tabs, TabItem, Card, CardGrid } from '@astrojs/starlight/
 
 ---
 
-## 3. 自定义 ISO 构建 (进阶)
+## 4. 自定义 ISO 构建 (进阶)
 
 如果您希望制作一个可以直接安装 `obedur-os` 的离线安装介质，您可以自行构建 ISO。
 
@@ -82,7 +98,7 @@ import { Steps, Aside, Tabs, TabItem, Card, CardGrid } from '@astrojs/starlight/
 
 ---
 
-## 验证与安全性
+## 5. 验证与安全性
 
 `obedur-os` 使用 [Sigstore](https://www.sigstore.dev/) 的 `cosign` 进行签名。您可以下载仓库中的 `cosign.pub` 文件并运行以下命令验证：
 
