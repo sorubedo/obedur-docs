@@ -201,9 +201,9 @@ cp -r /etc/skel/.config/niri/* ~/.config/niri/
 
 ### 推荐安装的 Noctalia 插件
 
-为了获得完整的桌面体验，强烈建议您在进入 Niri 后，通过 **Noctalia Shell** 的插件管理功能安装以下官方插件：
+为了获得完整的桌面体验，强烈建议您在进入 Niri 后，通过 **Noctalia Shell** 的插件管理功能安装以下插件：
 
-- **[Polkit Agent](https://noctalia.dev/plugins/polkit-agent/)**：**必装**。用于处理系统权限请求弹窗。如果没有它，您将无法在图形界面下输入管理员密码（如在 Warehouse 中安装软件）。
+- **[Polkit Agent](https://noctalia.dev/plugins/polkit-agent/)**：**必装**。官方插件,用于处理系统权限请求弹窗。如果没有它，您将无法在图形界面下输入管理员密码（如在 Warehouse 中安装软件）。
 - **[Notes Scratchpad](https://noctalia.dev/plugins/notes-scratchpad/)**：可选。开启强大的便签/随手记功能，通过 `Mod + N` 快速唤出。
 
 ### 常用快捷键与操作
@@ -237,7 +237,7 @@ cp -r /etc/skel/.config/niri/* ~/.config/niri/
 2.  **Qt 主题配置 (Qt5/6)**：
     - **获取资源**：从 [store.kde.org (Kvantum 分类)](https://store.kde.org/browse?cat=123) 下载 Kvantum 主题。
     - **设置工具**：打开 **Kvantum Manager** (程序名：`kvantummanager`) 选择并应用主题。
-    - **启用设置**：设置完成后，请确保在 `~/.config/niri/config.d/env.kdl` 中找到对应的 **Kvantum 环境变量** 并**取消注释**。
+    - **启用设置**：设置完成后，请确保在 `~/.config/niri/config.d/env.kdl` 中找到对应的 **Qt 环境变量** 并**取消注释**。
 
 3.  **图标包配置**：
     - **获取资源**：从 [gnome-look.org (Icons 分类)](https://www.gnome-look.org/browse?cat=132) 下载图标包。
