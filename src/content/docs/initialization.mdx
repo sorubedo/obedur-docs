@@ -238,16 +238,19 @@ cp /etc/skel/.bash_profile ~/.bash_profile
 
 1.  **GTK 主题配置**：
     - **获取资源**：从 [gnome-look.org](https://www.gnome-look.org/) 下载您喜爱的 GTK 主题。
+    - **安装路径**：解压并将其放入您的主目录下的 **`~/.themes`** 文件夹中（如果不存在请手动创建）。
     - **应用主题**：打开预装的 **nwg-look** 程序进行主题、图标及光标的设置。
     - **环境变量覆写**：由于 **Nautilus** 等部分应用可能不遵循常规配置，预置配置在 `~/.config/niri/config.d/env.kdl` 中提供了 GTK 主题的环境变量覆写示例（默认已注释）。设置好主题后，请前往该文件**取消相关注释**。
 
 2.  **Qt 主题配置 (Qt5/6)**：
     - **获取资源**：从 [store.kde.org (Kvantum 分类)](https://store.kde.org/browse?cat=123) 下载 Kvantum 主题。
+    - **安装路径**：通过 Kvantum Manager 的界面安装，或手动放入 `~/.config/Kvantum`。
     - **设置工具**：打开 **Kvantum Manager** (程序名：`kvantummanager`) 选择并应用主题。
-    - **启用设置**：设置完成后，请确保在 `~/.config/niri/config.d/env.kdl` 中找到对应的 **Qt 环境变量** 并**取消注释**。
+    - **启用设置**：设置完成后，请确保在 `~/.config/niri/config.d/env.kdl` 中找到对应的 **Kvantum 环境变量** 并**取消注释**。
 
 3.  **图标包配置**：
     - **获取资源**：从 [gnome-look.org (Icons 分类)](https://www.gnome-look.org/browse?cat=132) 下载图标包。
+    - **安装路径**：解压并将其放入您的主目录下的 **`~/.icons`** 文件夹中（如果不存在请手动创建）。
     - **应用图标**：
         - **GTK 应用**：使用 **nwg-look** 进行设置。
         - **Qt5/6 应用**：分别打开 **qt5ct** 和 **qt6ct** 工具，在“图标主题”选项卡中选择对应的图标包。
