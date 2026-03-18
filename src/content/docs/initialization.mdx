@@ -161,7 +161,7 @@ setfont ter-v32b
 
 ### 初始化与同步步骤
 
-执行以下命令将完整的预置配置结构（包含 Niri、Ghostty 终端及 Starship 提示符等）应用到您的主目录：
+执行以下命令将完整的预置配置结构（包含 Niri、Ghostty 终端、Starship 提示符以及相应的 Bash 环境设置）应用到您的主目录：
 
 ```bash
 # 创建必要的配置目录
@@ -171,15 +171,20 @@ mkdir -p ~/.config/niri ~/.config/ghostty
 cp -r /etc/skel/.config/niri/* ~/.config/niri/
 cp /etc/skel/.config/ghostty/config ~/.config/ghostty/config
 cp /etc/skel/.config/starship.toml ~/.config/starship.toml
+
+# 同步 Bash 环境配置 (启用 Starship 的前提)
+cp /etc/skel/.bashrc ~/.bashrc
+cp /etc/skel/.bash_profile ~/.bash_profile
 ```
 
 <Aside type="danger" title="重要警告">
-上述命令会**覆盖**以下现有的配置文件：
+上述命令会**直接覆盖**以下现有的配置文件：
 - `~/.config/niri/` 完整配置结构
 - `~/.config/ghostty/config` (Ghostty 终端配置)
-- `~/.config/starship.toml` (终端提示符美化配置)
+- `~/.config/starship.toml` (Starship 提示符美化配置)
+- `~/.bashrc` 和 `~/.bash_profile` (Bash 环境配置)
 
-如果您已有个人配置，请在执行前务必进行备份！
+如果您之前在 `.bashrc` 中有自己的别名或设置，**请在执行前务必进行备份！**
 </Aside>
 
 <Aside type="caution" title="个性化修改建议">
