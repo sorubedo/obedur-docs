@@ -55,7 +55,43 @@ setfont ter-v32b
 </details>
 
 <details>
-<summary><b>2. 代理服务配置 (Sing-box)</b></summary>
+<summary><b>2. NVIDIA 驱动与安全启动 (MOK)</b></summary>
+
+### 为什么需要配置？
+
+如果您使用的是 NVIDIA 显卡版本，并且您的电脑开启了 **Secure Boot (安全启动)**，由于内核模块需要签名验证，未录入密钥将导致驱动无法加载，甚至可能导致系统无法正常启动。
+
+### 解决方法
+
+我们强烈推荐您通过以下方式完成密钥录入，以保持安全启动开启。
+
+#### A. 录入密钥 (推荐)
+1. **执行录入脚本**：
+   在终端执行以下命令：
+   ```bash
+   blujust enroll-secure-boot-key
+   ```
+2. **按照提示操作**：
+   脚本会提示您设置一个临时的 **MOK 密码**。请务必记住这个密码。
+3. **重启并录入**：
+   重启电脑。在启动时会出现一个蓝色的 **Shim UEFI Key Management** 界面：
+   - 选择 **Enroll MOK**。
+   - 选择 **Continue**。
+   - 选择 **Yes**。
+   - **输入您之前设置的 MOK 密码**。
+   - 选择 **Reboot**。
+
+#### B. 关闭安全启动
+如果您不想处理 MOK 密钥，也可以进入 BIOS 设置，将 **Secure Boot** 选项设置为 **Disabled**。
+
+<Aside type="danger">
+**注意**：在未录入 MOK 且未关闭安全启动的情况下，NVIDIA 驱动将无法工作，您将处于低分辨率模式或面临启动黑屏。
+</Aside>
+
+</details>
+
+<details>
+<summary><b>3. 代理服务配置 (Sing-box)</b></summary>
 
 <Aside type="caution">
 **配置前提**：在开始之前，请确保您的网络连接正常。如果您在变基后发现 Wi-Fi 无法连接，请参考 [常见问题：变基后网络连接失败？](/obedur-docs/faq/#网络连接)。
@@ -111,7 +147,7 @@ setfont ter-v32b
 </details>
 
 <details>
-<summary><b>3. Flatpak 软件管理</b></summary>
+<summary><b>4. Flatpak 软件管理</b></summary>
 
 ### 预置说明
 
@@ -151,7 +187,7 @@ setfont ter-v32b
 </details>
 
 <details>
-<summary><b>4. Niri 配置初始化</b></summary>
+<summary><b>5. Niri 配置初始化</b></summary>
 
 ### 预置说明
 
@@ -228,7 +264,7 @@ cp /etc/skel/.bash_profile ~/.bash_profile
 </details>
 
 <details>
-<summary><b>5. 主题与外观配置</b></summary>
+<summary><b>6. 主题与外观配置</b></summary>
 
 ### 预置说明
 
@@ -264,7 +300,7 @@ cp /etc/skel/.bash_profile ~/.bash_profile
 </details>
 
 <details>
-<summary><b>6. Flatpak 主题与权限配置</b></summary>
+<summary><b>7. Flatpak 主题与权限配置</b></summary>
 
 ### 核心原理
 
