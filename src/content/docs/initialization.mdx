@@ -263,6 +263,42 @@ cp /etc/skel/.bash_profile ~/.bash_profile
 
 </details>
 
+<details>
+<summary><b>6. Flatpak 主题与权限配置</b></summary>
+
+### 核心原理
+
+由于 Flatpak 应用运行在沙盒中，您需要手动授予其访问主题文件的权限，并配置环境变量来强制应用主题。
+
+### 配置步骤
+
+1.  **授予全局权限**：
+    执行以下命令，允许所有 Flatpak 应用读取您的本地主题、图标以及 Kvantum 配置：
+    ```bash
+    flatpak override --user --filesystem=~/.themes:ro --filesystem=~/.icons:ro --filesystem=xdg-config/gtk-3.0:ro --filesystem=xdg-config/Kvantum:ro
+    ```
+
+2.  **设置主题环境变量**：
+    通过环境变量告知 Flatpak 应用具体使用哪个主题，并强制 Qt 应用使用 Kvantum 引擎：
+    ```bash
+    # 设置 GTK 主题名 (请替换为您实际的主题名称)
+    flatpak override --user --env=GTK_THEME=您的主题名称
+
+    # 强制 Qt 应用使用 Kvantum 引擎
+    flatpak override --user --env=QT_STYLE_OVERRIDE=kvantum
+    ```
+
+3.  **安装 Flatpak 主题引擎**：
+    为了让 Flatpak 应用能够识别并调用主题引擎，建议通过 **Warehouse** 或命令行安装以下运行时：
+    - **Qt 支持**：`org.kde.KStyle.Kvantum`
+    - **GTK 支持**：`org.gtk.Gtk3theme.adw-gtk3` (及对应的 dark 版本)
+
+<Aside type="tip">
+**进阶管理**：您也可以打开系统预装的 **Flatseal**，在 **"All Applications"** 的 **Filesystem** 和 **Environment** 栏目下直观地查阅和修改上述设置。
+</Aside>
+
+</details>
+
 ---
 
 :::note[声明]
