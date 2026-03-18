@@ -59,6 +59,16 @@ xdg-user-dirs-update
 
 </details>
 
+<details>
+<summary><b>应用无法正确切换亮色/暗色模式？</b></summary>
+
+**原因分析**：`obedur-os` 使用了 **xdg-desktop-portal-gnome** 门户，许多应用（尤其是遵循 XDG 标准的应用）会优先读取 GTK 的配置来决定其色彩模式。
+
+**解决方法**：
+您可以打开预装的 **nwg-look** 工具，在设置中手动切换您的**主题偏好** (Prefer Light/Dark)。设置完成后，支持该标准的应用将能够正确识别并应用对应的亮色或暗色模式。
+
+</details>
+
 ---
 
 ## 参与贡献
