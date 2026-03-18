@@ -18,8 +18,8 @@ export default defineConfig({
 						{ label: '安装指南', slug: 'getting-started' },
 						{ label: '初始化指南', slug: 'initialization' },
 						{ label: '系统预览', slug: 'screenshots' },
-						{ label: '开发者寄语', slug: 'developer-notes' },
 						{ label: '使用技巧', slug: 'tips' },
+						{ label: '开发者寄语', slug: 'developer-notes' },
 					],
 				},
 				{
