@@ -8,9 +8,12 @@ import { Aside, Steps, Card, CardGrid } from '@astrojs/starlight/components';
 在成功变基到 `obedur-os` 并重启系统后，您需要执行一些初始配置来确保系统的最佳体验。由于 `obedur-os` 是基于容器构建的，部分硬件相关的底层配置需要手动完成。
 
 <Aside type="tip" title="首次配置推荐方式">
-在 **tuigreet** (登录界面) 的会话选择菜单中，您可以先选择 **bash** 登录。
+在 **tuigreet** (登录界面) 的会话选择菜单中，您可以：
 
-**原因**：由于 `obedur-os` 默认不为变基用户提供 Niri 初始配置，如果您直接登录 Niri，可能会发现快捷键无法打开终端。在 bash 环境下完成下方的同步和配置步骤后，再通过 `exit` 退出并重新登录 Niri 即可。
+- **直接选择 Niri-Obedur**：使用系统级预置配置，开箱即用
+- **按 F3 选择其他会话**：如果您想完全使用自己的配置
+
+**原因**：如果您直接登录默认 Niri，可能会发现快捷键无法打开终端或配置不完整。建议先在 Niri-Obedur 会话中完成下方的必做配置后，再根据需要切换到其他会话。
 </Aside>
 
 ---
@@ -191,56 +194,63 @@ setfont ter-v32b
 
 ### 预置说明
 
-`obedur-os` 在 `/etc/skel/.config/niri` 中预置了一套深度的模块化配置，集成了 **Noctalia Shell** 和常用工具。
-- **对于新创建的用户**：这些配置会在创建用户时自动应用。
-- **对于从其他系统变基来的用户**：您需要手动同步这些预置配置到您的个人目录。
+`obedur-os` 在 `/etc/obedur-dotfiles/niri` 中预置了一套深度的模块化配置，集成了 **Noctalia Shell** 和常用工具。
 
-### 初始化与同步步骤
+在 **tuigreet** 登录界面，按 **F3** 选择 **"Niri-Obedur"** 会话即可使用系统级预置配置。
 
-执行以下命令将完整的预置配置结构（包含 Niri、Ghostty 终端、Starship 提示符以及相应的 Bash 环境设置）应用到您的主目录：
+### 个性化配置方案
+
+由于 Niri 的 `include` 指令不支持展开 `~`，用户配置覆写有以下三种方案：
+
+#### 方案一：直接修改系统配置（推荐用于基础设置）
+
+直接编辑位于 `/etc/obedur-dotfiles/niri/config.kdl` 的系统级配置。
 
 ```bash
-# 创建必要的配置目录
-mkdir -p ~/.config/niri ~/.config/ghostty
-
-# 同步所有预置配置
-cp -r /etc/skel/.config/niri/* ~/.config/niri/
-cp /etc/skel/.config/ghostty/config ~/.config/ghostty/config
-cp /etc/skel/.config/starship.toml ~/.config/starship.toml
-
-# 同步 Bash 环境配置 (启用 Starship 的前提)
-cp /etc/skel/.bashrc ~/.bashrc
-cp /etc/skel/.bash_profile ~/.bash_profile
+sudo nano /etc/obedur-dotfiles/niri/config.kdl
 ```
 
-<Aside type="danger" title="重要警告">
-上述命令会**直接覆盖**以下现有的配置文件：
-- `~/.config/niri/` 完整配置结构
-- `~/.config/ghostty/config` (Ghostty 终端配置)
-- `~/.config/starship.toml` (Starship 提示符美化配置)
-- `~/.bashrc` 和 `~/.bash_profile` (Bash 环境配置)
-
-如果您之前在 `.bashrc` 中有自己的别名或设置，**请在执行前务必进行备份！**
+<Aside type="note">
+系统更新时，`/etc` 遵循**不可变系统的三路合并机制**，您的修改在合并后会被保留。
 </Aside>
 
-<Aside type="caution" title="个性化修改建议">
-**请注意**：这套预置配置是开发者根据个人习惯编写的，**并不一定完全适合您**。同步完成后，请务必根据您的硬件和喜好进行修改：
+#### 方案二：使用 Niri 的 include 机制覆写配置（推荐用于个人个性化）
 
-1.  **显示器配置 (`config.d/outputs.kdl`)**：
-    - **必做**：开发者默认禁用了自定义显示器配置。
-    - **操作**：在 Niri 会话中运行 `niri msg outputs` 查看可用显示器名称。编辑 `config.d/outputs.kdl` 填入您的配置，然后在 `config.kdl` 中取消 `include "config.d/outputs.kdl"` 的注释。
-2.  **环境变量 (`config.d/env.kdl`)**：
-    - **语言**：修改 `LANG` 等变量以符合您的语言偏好。
+在 `/etc/obedur-dotfiles/niri/config.kdl` 末尾添加一行 include，引用您自己选择的覆写配置文件路径：
+
+```kdl
+// 在文件末尾添加
+include "/home/<您的用户名>/.config/niri/override.kdl"
+```
+
+或位于您主目录其他地方的任何 niri 覆写配置都可以。系统级的默认配置会作为基础，您的个人覆写会在其后加载。
+
+<Aside type="tip">
+关于 Niri include 的合并/覆盖机制，请参阅 [Niri 官方文档 - Include 配置](https://niri-wm.github.io/niri/Configuration%3A-Include.html)。
+
+**未来改进**：Niri 下个版本的 include 将支持展开 `~`。届时开发者会直接在系统配置中添加 `// include optional=true "~/.config/niri/override.kdl"`，用户只需创建 `~/.config/niri/override.kdl` 即可自动启用个人覆写，无需手动添加 include 语句。
 </Aside>
 
-### 更新与重载配置
+#### 方案三：完全使用您自己的配置
 
-在修改配置文件后，您不需要重启系统：
-- **实时重载**：保存文件后，Niri 通常会自动重载配置。
-- **手动触发重载**：如果需要手动触发，可以执行：
-  ```bash
-  niri msg action do-reload-config
-  ```
+如果您希望完全使用自己的 Niri 配置，可以：
+
+1. 复制系统预置配置作为模板：
+   ```bash
+   cp -r /etc/obedur-dotfiles/niri ~/.config/niri
+   ```
+2. 在 tuigreet 界面按 **F3** 选择 **"Niri"**（标准会话）而不是 "Niri-Obedur"
+
+### 必做个性化配置
+
+无论选择哪种方案，以下配置通常需要用户根据自身硬件调整：
+
+1.  **显示器配置**：
+    - 在 Niri 会话中运行 `niri msg outputs` 查看可用显示器名称
+    - 编辑对应的显示器配置文件，填入您的显示器的实际名称和分辨率等参数
+
+2.  **环境变量**：
+    - 修改 `config.d/env.kdl` 中的 `LANG` 等变量以符合您的语言偏好
 
 ### 推荐安装的 Noctalia 插件
 
@@ -276,13 +286,12 @@ cp /etc/skel/.bash_profile ~/.bash_profile
     - **获取资源**：从 [gnome-look.org](https://www.gnome-look.org/) 下载您喜爱的 GTK 主题。
     - **安装路径**：解压并将其放入您的主目录下的 **`~/.themes`** 文件夹中（如果不存在请手动创建）。
     - **应用主题**：打开预装的 **nwg-look** 程序进行主题、图标及光标的设置。
-    - **环境变量覆写**：由于 **Nautilus** 等部分应用可能不遵循常规配置，预置配置在 `~/.config/niri/config.d/env.kdl` 中提供了 GTK 主题的环境变量覆写示例（默认已注释）。设置好主题后，请前往该文件**取消相关注释**。
+    - **环境变量**：由于 **Nautilus** 等部分应用可能不遵循常规配置，安装主题后需设置 `GTK_THEME` 环境变量。
 
 2.  **Qt 主题配置 (Qt5/6)**：
     - **获取资源**：从 [store.kde.org (Kvantum 分类)](https://store.kde.org/browse?cat=123) 下载 Kvantum 主题。
     - **安装路径**：通过 Kvantum Manager 的界面安装，或手动放入 `~/.config/Kvantum`。
     - **设置工具**：打开 **Kvantum Manager** (程序名：`kvantummanager`) 选择并应用主题。
-    - **启用设置**：设置完成后，请确保在 `~/.config/niri/config.d/env.kdl` 中找到对应的 **Kvantum 环境变量** 并**取消注释**。
 
 3.  **图标包配置**：
     - **获取资源**：从 [gnome-look.org (Icons 分类)](https://www.gnome-look.org/browse?cat=132) 下载图标包。
@@ -290,7 +299,7 @@ cp /etc/skel/.bash_profile ~/.bash_profile
     - **应用图标**：
         - **GTK 应用**：使用 **nwg-look** 进行设置。
         - **Qt5/6 应用**：分别打开 **qt5ct** 和 **qt6ct** 工具，在“图标主题”选项卡中选择对应的图标包。
-        - **Noctalia 组件**：在 `~/.config/niri/config.d/env.kdl` 中，找到并取消关于图标主题的环境变量注释（例如 `// QS_ICON_THEME "Tela-dark"`），将其中的名称修改为您实际安装的**图标包名称**。
+        - **Noctalia 组件**：设置 `QS_ICON_THEME` 环境变量。
 
 4.  **字体配置**：
     - **GTK 字体**：使用 **nwg-look** 程序进行设置。
